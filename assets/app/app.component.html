@@ -1,22 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <input type="text" [(ngModel)] = "message.body">
-      <article class="panel panel-default">
-        <div class="panel-body">
-          <h3> {{message.body}} </h3>
-        </div>
-        <footer class="panel-footer">
-          <div class="author">
-            {{message.author}}
-          </div>
-          <div class="config">
-            <a href="#">edit</a>
-            <br>
-            <a href="#">delete</a>
-          </div>
-        </footer>
-      </article>
+      <app-message></app-message>
     </div>
   </div>
 </div>
