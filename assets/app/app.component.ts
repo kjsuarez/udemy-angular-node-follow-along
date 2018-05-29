@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Message } from './messages/message.model'
 @Component({
     selector: 'my-app',
     templateUrl: './app.component.html',
@@ -19,8 +19,5 @@ import { Component } from '@angular/core';
     `]
 })
 export class AppComponent {
-  message = {
-    body: "Boy, Kevin sure is great",
-    author: "nobody ever"
-  };
+  app_component_message: Message = new Message("Kevin is great", "nobody ever");
 }

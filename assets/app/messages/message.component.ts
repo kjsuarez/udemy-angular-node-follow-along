@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, Input } from '@angular/core';
+import { Message } from './message.model'
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -20,8 +20,5 @@ import { Component } from '@angular/core';
 })
 
 export class MessageComponent {
-  message = {
-    body: "Boy, Kevin sure is great",
-    author: "nobody ever"
-  };
+  @Input('input_message') message: Message;
 }
