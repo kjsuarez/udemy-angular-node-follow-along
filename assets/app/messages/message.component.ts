@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Message } from './message.model'
 @Component({
   selector: 'app-message',
@@ -21,4 +21,10 @@ import { Message } from './message.model'
 
 export class MessageComponent {
   @Input('input_message') message: Message;
+
+  @Output() editClicked = new EventEmitter<sting>();
+
+  onEdit(){
+    this.editClicked.emit("you mattered");
+  }
 }
