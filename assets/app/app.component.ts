@@ -19,5 +19,8 @@ import { Message } from './messages/message.model'
     `]
 })
 export class AppComponent {
-  app_component_message: Message = new Message("Kevin is great", "nobody ever");
+  messages: Message[] = [
+    new Message("Kevin is great", "nobody ever"),
+    new Message("kevin lacks integrity", "probably a few people at some point")
+  ];
 }
