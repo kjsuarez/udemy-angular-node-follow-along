@@ -1,7 +1,14 @@
 <div class="col-md-8 col-md-offset-2">
-  <div class="form-group">
-    <input type="text" id="message-body" class="form-contol" #message_input>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" ngNativeValidate>
+    <div class="form-group">
+      <input type="text"
+            id="message-body"
+            class="form-contol"
+            ngModel
+            required
+            name="body">
 
-  </div>
-  <button type="button" class="btn btn-primary" (click)="onSave(message_input.value)">Send</button>
+    </div>
+    <button type="submit" class="btn btn-primary" >Send</button>
+  </form>
 </div>
