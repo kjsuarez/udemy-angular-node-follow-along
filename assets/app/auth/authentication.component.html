@@ -1,2 +1,15 @@
 <h1>tada</h1>
-<auth-logout></auth-logout>
+
+<header class="row spacing">
+  <nav class=" col-md-8 col-md-offset-2">
+    <ul class="nav nav-tabs">
+      <li routerLinkActive="active"><a [routerLink]="['signup']">signup</a></li>
+      <li routerLinkActive="active"><a [routerLink]="['login']">login</a></li>
+      <li routerLinkActive="active"><a [routerLink]="['logout']">logout</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="row spacing">
+  <router-outlet></router-outlet>
+</div>
