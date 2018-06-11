@@ -9,7 +9,10 @@ import { Message } from "./message.model";
   templateUrl: './message-input.component.html'
 })
 
-export class MessageInputComponent {
+export class MessageInputComponent implements OnInit{
+
+  message: Message;
+
   constructor(private messageService: MessageService) {}
 
   onSubmit(form: NgForm){
@@ -23,7 +26,11 @@ export class MessageInputComponent {
       );
 
     form.resetForm();
+  }
 
-    //save to db
+  ngOnInit() {
+    this.messageService.messageIsEdit.subscribe(
+      (message: Message) => this.message = message
+    );
   }
 }

@@ -9,6 +9,7 @@ import { Message } from "./message.model";
 export class MessageService {
 
   private messages: Message[] = [];
+  messageIsEdit = new EventEmitter<Message>();
 
   constructor(private http: Http) {}
 
@@ -42,4 +43,7 @@ export class MessageService {
   deleteMessage(message: Message){
     this.messages.splice(this.messages.indexOf(message), 1);
   }
-}
+
+  editMessage(message: Message) {
+      this.messageIsEdit.emit(message);
+  }
