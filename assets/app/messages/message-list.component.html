@@ -1,6 +1,6 @@
 <div class="col-md-8 col-md-offset-2">
   <app-message
-    [input_message]='message'
+    [message]='message'
     (editClicked)='message.body = $event'
     *ngFor="let message of messages"></app-message>
 </div>
