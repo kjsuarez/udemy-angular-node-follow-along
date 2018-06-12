@@ -28,10 +28,13 @@ export class MessageComponent {
   constructor(private messageService: MessageService) {}
 
   onEdit(){
-    this.messageService.editMessage(this.message); 
+    this.messageService.editMessage(this.message);
   }
 
   onDelete() {
-    this.messageService.deleteMessage(this.message);
+    this.messageService.deleteMessage(this.message)
+      .subscribe(
+        result => console.log(result)
+      );
   }
 }

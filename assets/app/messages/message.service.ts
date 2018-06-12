@@ -58,3 +58,10 @@ export class MessageService {
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
+
+  deleteMessage(message: Message) {
+    this.messages.splice(this.messages.indexOf(message), 1);
+    return this.http.delete('http://localhost:3000/message/' + message.id)
+    .map((response: Response) => response.json())
+    .catch((error: Response) => Observable.throw(error.json()));
+  }
