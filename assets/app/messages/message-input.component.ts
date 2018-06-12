@@ -19,6 +19,10 @@ export class MessageInputComponent implements OnInit{
     if(this.message) {
       // the message already exists, so we're editing
       this.message.body = form.value.body; // changes message in the frontend
+      this.messageService.updateMessage(this.message)
+        .subscribe(
+          result => console.log(result)
+        );
       this.message = null;
     } else {
       // the message does not yet exits, we're creating a new one
