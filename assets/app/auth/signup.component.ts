@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 
+import { User } from "./user.model";
+import { AuthService } from "./auth.service";
+
 @Component({
   selector: 'auth-signup',
   templateUrl: './signup.component.html'
@@ -9,8 +12,21 @@ import { FormGroup, FormControl, Validators } from '@angular/forms'
 export class SignupComponent implements onInit {
   signupForm:  formGroup;
 
+  constructor(private authService: AuthService) {}
+
   onSubmit(){
-    console.log(this.signupForm);
+    const user = new User(
+      this.signupForm.value.firstName,
+      this.signupForm.value.lastName,
+      this.signupForm.value.email,
+      this.signupForm.value.password
+    );
+
+    this.authService.signup(user)
+      .subscribe(
+        data => console.log(data),
+        error => console.error(error)
+      );
     this.signupForm.reset();
   }
 
