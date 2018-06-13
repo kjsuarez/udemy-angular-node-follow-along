@@ -33,6 +33,7 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use('/user', userRoutes);
 app.use('/message', messageRoutes);
 app.use('/', appRoutes);
 
