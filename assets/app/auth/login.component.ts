@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
+import { Router } from "@angular/router";
+
+import { User } from "./user.model";
+import { AuthService } from "./auth.service";
 
 @Component({
   selector: 'auth-login',
@@ -10,8 +14,27 @@ export class LoginComponent implements onInit {
 
   loginForm:  formGroup;
 
+  constructor(private authService: AuthService, private router: Router) {}
+  // why is a constructor needed when using a service?
+
   onSubmit(){
-    console.log(this.loginForm);
+    console.log(this.loginForm.value.email);
+    console.log(this.loginForm.value.password);
+    const user = new User(
+      "",
+      "",
+      this.loginForm.value.email,
+      this.loginForm.value.password
+    );
+    this.authService.login(user)
+      .subscribe(
+        data => {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('userId', data.userId);
+            this.router.navigateByUrl('/');
+        },
+        error => console.error(error)
+      );
     this.loginForm.reset();
   }
 
