@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { User } from "./user.model";
+import { AuthService } from "./auth.service";
 
 @Component({
   selector: 'authentication-form',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 
 export class AuthenticationComponent {
 
+    constructor(private authService: AuthService) {}
+
+  isLoggedIn() {
+      return this.authService.isLoggedIn();
+  }
 }
