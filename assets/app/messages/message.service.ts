@@ -16,7 +16,11 @@ export class MessageService {
   addMessage(message: Message){
     const body = JSON.stringify(message);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/message', body, {headers: headers})
+    const token = localStorage.getItem('token')
+      ? '?token=' + localStorage.getItem('token')
+      : '';
+      console.log(token);
+    return this.http.post('http://localhost:3000/message' + token, body, {headers: headers})
       .map((response: Response) => {
         const result = response.json();
         const message =  new Message(result.obj.content, 'Dummy', result.obj._id, null);
@@ -54,14 +58,20 @@ export class MessageService {
     console.log(message);
       const body = JSON.stringify(message);
       const headers = new Headers({'Content-Type': 'application/json'});
-      return this.http.patch('http://localhost:3000/message/' + message.id, body, {headers: headers})
+      const token = localStorage.getItem('token')
+        ? '?token=' + localStorage.getItem('token')
+        : '';
+      return this.http.patch('http://localhost:3000/message/' + message.id + token, body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
 
   deleteMessage(message: Message) {
+    const token = localStorage.getItem('token')
+      ? '?token=' + localStorage.getItem('token')
+      : '';
     this.messages.splice(this.messages.indexOf(message), 1);
-    return this.http.delete('http://localhost:3000/message/' + message.id)
+    return this.http.delete('http://localhost:3000/message/' + message.id + token)
     .map((response: Response) => response.json())
     .catch((error: Response) => Observable.throw(error.json()));
   }

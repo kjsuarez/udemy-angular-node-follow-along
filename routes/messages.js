@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Message = require('../models/message')
+var jwt = require('jsonwebtoken');
+
+var User = require('../models/user');
+var Message = require('../models/message');
 
 router.get('/', function (req, res, next) {
   Message.find()
@@ -18,24 +21,48 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.post('/', function (req, res, next) {
-  console.log(req.body.body);
-  var message = new Message({
-    content: req.body.body
+router.use('/', function (req, res, next) {
+  jwt.verify(req.query.token, 'secret', function (err, decoded) {
+    if (err) {
+      return res.status(401).json({
+        title: 'User not Authenticated :(',
+        error: err
+      });
+    }
+    next();
   });
-  message.save(function (err, result) {
+});
+
+
+router.post('/', function (req, res, next) {
+  console.log("got this far");
+  var decoded = jwt.decode(req.query.token);
+  User.findById(decoded.user._id, function (err, user) {
     if (err) {
       return res.status(500).json({
         title: 'Something went tits up',
         error: err
       });
     }
-    res.status(201).json({
-      message: 'saved message',
-      obj: result
+    var message = new Message({
+      content: req.body.body,
+      user: user._id
+    });
+    message.save(function (err, result) {
+      if (err) {
+        return res.status(500).json({
+          title: 'Something went tits up',
+          error: err
+        });
+      }
+      user.messages.push(result);
+      user.save();
+      res.status(201).json({
+        message: 'saved message',
+        obj: result
+      });
     });
   });
-
 });
 
 router.patch('/:id', function (req, res, next) {
